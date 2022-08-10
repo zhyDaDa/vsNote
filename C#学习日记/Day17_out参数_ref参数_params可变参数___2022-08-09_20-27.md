@@ -8,6 +8,9 @@ tags:
 目录
 - [引入练习](#引入练习)
 - [***out***参数](#out参数)
+- [***out***练习](#out练习)
+- [***ref***参数](#ref参数)
+- [***params***可变参数](#params可变参数)
 
 ## 引入练习
 - 求数组的最大值, 最小值, 总和, 平均值
@@ -97,5 +100,116 @@ public static void GetMaxMinSumAvg(int[] numbers, out int max, out int min, out 
         sum += numbers[i];
     }
     avg = sum / numbers.Length;
+}
+```
+
+## ***out***练习
+- 会提示错误原因的登录系统, 当然是要用方法的那种
+```
+static void Main(string[] args) //Main函数
+{  //代码从这里走起
+    Console.WriteLine("输入用户名");
+    string name = Console.ReadLine();
+    Console.WriteLine("请输入密码");
+    string pwd = Console.ReadLine();
+    string msg;
+    bool b = IsLogin(name, pwd, out msg);
+    Console.WriteLine("登录结果为: {0}\n登录信息: {1}", b, msg);
+
+}
+/// <summary>
+/// 判断用户名和密码是否正确
+/// </summary>
+/// <param name="name">用户名</param>
+/// <param name="pwd">密码</param>
+/// <param name="msg">提示信息</param>
+/// <returns>登陆成功返回true</returns>
+public static bool IsLogin(string name, string pwd, out string msg)
+{
+    if (name =="admin" && pwd == "666666")
+    {
+        msg = "登陆成功";
+        return true;
+    }
+    else if (name == "admin")
+    {
+        msg = "密码错误";
+        return false;
+    }
+    else if (pwd == "666666")
+    {
+        msg = "用户名错误";
+        return false;
+    }
+    else
+    {
+        msg = "未知错误";
+        return false;
+    }
+}
+```
+- 模仿***TryParse***
+
+```
+public static bool MyTryParse(string s, out int result)
+{
+    result = 0;
+    try
+    {
+        result = Convert.ToInt32(s);
+        return true;
+    }
+    catch
+    {
+        return false;
+    }
+}
+```
+
+## ***ref***参数
+- ***ref***参数能够将一个变量带入方法中进行改变, 改变完成后, 再将改变后的参数导出方法  
+- **注意**: ***ref***参数要求在方法外必须为其赋值, 而方法内可以不赋值
+> 弹幕里多次提到"指针", 我理解为*内存地址*
+
+- 使用方法来交换两个int类型的变量
+
+```
+static void Main(string[] args) //Main函数
+{  //代码从这里走起
+    int n1 = 20;
+    int n2 = 99;
+    SwitchTwoInt(ref n1, ref n2);
+    Console.WriteLine(n1 + "\n" + n2);
+}
+
+public static void SwitchTwoInt(ref int n1, ref int n2)
+{
+    n1 = n1 - n2;
+    n2 = n1 + n2;
+    n1 = n2 - n1;
+}
+```
+
+## ***params***可变参数
+- ***params***可变参数能将实参列表中跟**可变参数数组类型**一致的元素都当做数组的元素去处理  
+- **注意**: ***params***可变参数**必须**是形参列表中最后一个参数
+
+```
+static void Main(string[] args) //Main函数
+{  //代码从这里走起
+    int sum1 = GetSum(21, 323, 3, 13, 2123, 21, 4);
+    int[] nums = { 21, 323, 3, 13, 2123, 21, 4 };
+    int sum2 = GetSum(nums);
+    Console.WriteLine(sum1);
+    Console.WriteLine(sum2);
+}
+public static int GetSum(params int[] nums)
+{
+    int sum = 0;
+    for (int i = 0; i < nums.Length; i++)
+    {
+        sum += nums[i];
+    }
+    return sum;
 }
 ```
