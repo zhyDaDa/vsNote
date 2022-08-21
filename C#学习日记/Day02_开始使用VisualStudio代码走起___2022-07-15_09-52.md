@@ -1,8 +1,10 @@
 ---
-   tags:
-      - C#
-      - 编程
-      - 学习笔记
+title: Day02_开始使用VisualStudio代码走起
+date: 2022-07-15
+tags:
+  - C#学习笔记
+  - study
+      
 ---
 
 ## 主要内容
