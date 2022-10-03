@@ -2,7 +2,7 @@
 title: Day01_了解C井以及.Net的功能
 date: 2022-07-14
 tags:
-  - C#学习笔记
+  - C井学习笔记
   - study
       
 ---
